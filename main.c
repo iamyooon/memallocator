@@ -93,6 +93,7 @@ int parse_opt(int argc, char **argv)
 				g_sz_unit = get_unit_of_size(optarg);
 				g_sz_alloc = get_size_of_allocation(optarg, 10);
 				printf("Requested alloc size -> %d(%s)\n",g_sz_alloc, str_szunit[g_sz_unit]);
+				return 0;
 				break;
 			default:
 				printf("Invalid argument(%s), skip it.\n", optarg);
@@ -100,11 +101,37 @@ int parse_opt(int argc, char **argv)
 	}
 }
 
+int check_param(void)
+{
+	if (!g_sz_unit || !g_sz_alloc)
+		return -1;
+
+	return 0;
+}
+
+void help(void)
+{
+	printf("Usage :\n");
+	printf(" -s	specify size of allocation and unit\n");
+	printf("	i.e) request 10MB allocation\n");
+	printf("	-s 10M\n");
+	printf("	i.e) request 1MB allocation\n");
+	printf("	-s 1M\n");
+}
+
 int main(int argc, char** argv)
 {
 	int i;
+	int ret;
 
 	parse_opt(argc, argv);
+
+	ret = check_param();
+
+	if (ret < 0){
+		help();
+		return -1;
+	}
 
 	return 0;
 }
