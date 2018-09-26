@@ -1,0 +1,4 @@
+1) need to support variant postfix support
+	- GB,MB,KB
+	- gb,mb,kb
+	- g,m,k,b
